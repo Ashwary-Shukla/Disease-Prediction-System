@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Disease Prediction System</title>
+
+
+    <!-- Google Font -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+    <style>
+
+
+    /* ================= GLOBAL STYLE ================= */
+
+
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:'Poppins',sans-serif;
+    }
+
+
+
+    body{
+
+        min-height:100vh;
+
+        background:
+        linear-gradient(
+            135deg,
+            rgba(0,180,216,0.75),
+            rgba(0,119,182,0.85)
+        ),
+        url("https://images.unsplash.com/photo-1584982751601-97dcc096659c");
+
+
+        background-size:cover;
+        background-position:center;
+
+
+        display:flex;
+        justify-content:center;
+        align-items:center;
+
+        overflow-x:hidden;
+
+    }
+
+
+
+
+
+    /* ================= FLOATING MEDICAL ICONS ================= */
+
+
+    .medical-icons span{
+
+        position:absolute;
+
+        font-size:70px;
+
+        opacity:0.18;
+
+        animation:float 7s infinite ease-in-out;
+
+    }
+
+
+    .medical-icons span:nth-child(1){
+
+        top:10%;
+        left:8%;
+
+    }
+
+
+    .medical-icons span:nth-child(2){
+
+        top:25%;
+        right:10%;
+
+        animation-delay:2s;
+
+    }
+
+
+    .medical-icons span:nth-child(3){
+
+        bottom:10%;
+        left:15%;
+
+        animation-delay:4s;
+
+    }
+
+
+
+
+    @keyframes float{
+
+        50%{
+
+            transform:translateY(-40px)
+            rotate(20deg);
+
+        }
+
+    }
+
+
+
+
+
+
+
+    /* ================= LANGUAGE BUTTON ================= */
+
+
+    .language{
+
+        position:absolute;
+
+        top:25px;
+
+        right:40px;
+
+    }
+
+
+
+    select{
+
+        padding:12px 20px;
+
+        border-radius:25px;
+
+        border:none;
+
+        cursor:pointer;
+
+        color:#0077b6;
+
+        font-weight:600;
+
+        box-shadow:
+        0 5px 15px rgba(0,0,0,0.2);
+
+    }
+
+
+
+
+
+
+
+    /* ================= MAIN CARD ================= */
+
+
+    .container{
+
+
+        width:90%;
+
+        max-width:1200px;
+
+
+        background:
+
+        rgba(255,255,255,0.93);
+
+
+        backdrop-filter:blur(15px);
+
+
+        padding:40px;
+
+
+        border-radius:30px;
+
+
+        text-align:center;
+
+
+        box-shadow:
+
+        0 20px 50px rgba(0,0,0,0.25);
+
+
+        animation:open 1s ease;
+
+
+    }
+
+
+
+
+    @keyframes open{
+
+
+        from{
+
+            opacity:0;
+
+            transform:translateY(60px);
+
+        }
+
+
+        to{
+
+            opacity:1;
+
+            transform:translateY(0);
+
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+    /* ================= HEADER ================= */
+
+
+    .badge{
+
+
+        display:inline-block;
+
+        background:#e0f7ff;
+
+        color:#0077b6;
+
+        padding:8px 20px;
+
+        border-radius:30px;
+
+        font-weight:600;
+
+        margin-bottom:20px;
+
+    }
+
+
+
+
+    h1{
+
+
+        color:#0077b6;
+
+        font-size:40px;
+
+        margin-bottom:10px;
+
+        animation:pulse 2s infinite;
+
+    }
+
+
+
+    @keyframes pulse{
+
+
+        50%{
+
+            transform:scale(1.04);
+
+        }
+
+    }
+
+
+
+    .tagline{
+
+
+        color:#555;
+
+        font-size:18px;
+
+        margin-bottom:30px;
+
+    }
+
+
+
+
+
+
+
+    /* ================= SYMPTOMS SECTION ================= */
+
+
+    h3{
+
+        color:#023e8a;
+
+        margin-bottom:20px;
+
+    }
+
+
+
+
+    .symptoms-box{
+
+
+        display:grid;
+
+
+        grid-template-columns:
+        repeat(auto-fit,minmax(200px,1fr));
+
+
+        gap:15px;
+
+
+        max-height:360px;
+
+
+        overflow-y:auto;
+
+
+        padding:20px;
+
+
+        background:#effbff;
+
+
+        border-radius:20px;
+
+
+    }
+
+
+
+
+
+    .symptom{
+
+
+        background:white;
+
+
+        padding:15px;
+
+
+        border-radius:15px;
+
+
+        text-align:left;
+
+
+        color:#023e8a;
+
+
+        cursor:pointer;
+
+
+        font-weight:500;
+
+
+        transition:.4s;
+
+
+        box-shadow:
+
+        0 5px 15px rgba(0,0,0,.1);
+
+
+        animation:card .5s ease;
+
+
+    }
+
+
+
+
+
+    .symptom:hover{
+
+
+        transform:
+
+        translateY(-8px)
+        scale(1.03);
+
+
+        background:#caf0f8;
+
+
+    }
+
+
+
+
+
+    @keyframes card{
+
+
+        from{
+
+            opacity:0;
+
+            transform:translateY(30px);
+
+        }
+
+
+        to{
+
+            opacity:1;
+
+            transform:translateY(0);
+
+        }
+
+    }
+
+
+
+
+    input[type="checkbox"]{
+
+        width:18px;
+
+        height:18px;
+
+        margin-right:8px;
+
+        accent-color:#0077b6;
+
+    }
+
+
+
+
+
+
+
+
+    /* ================= BUTTON ================= */
+
+
+    button{
+
+
+        margin-top:30px;
+
+
+        padding:15px 45px;
+
+
+        border:none;
+
+
+        border-radius:40px;
+
+
+        background:
+
+        linear-gradient(
+        45deg,
+        #0077b6,
+        #00b4d8
+        );
+
+
+        color:white;
+
+
+        font-size:18px;
+
+
+        cursor:pointer;
+
+
+        transition:.4s;
+
+
+        animation:pulseButton 2s infinite;
+
+    }
+
+
+
+
+    button:hover{
+
+        transform:scale(1.08);
+
+    }
+
+
+
+
+
+    @keyframes pulseButton{
+
+
+        50%{
+
+            box-shadow:
+            0 0 25px #00b4d8;
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+    /* ================= RESULT ================= */
+
+
+    .result{
+
+
+        margin-top:35px;
+
+
+        padding:25px;
+
+
+        border-radius:20px;
+
+
+        background:
+
+        linear-gradient(
+        135deg,
+        #d8f3dc,
+        #b7e4c7
+        );
+
+
+        color:#1b4332;
+
+
+        animation:result .8s ease;
+
+    }
+
+
+
+
+
+    @keyframes result{
+
+
+        from{
+
+            opacity:0;
+
+            transform:scale(.8);
+
+        }
+
+
+        to{
+
+            opacity:1;
+
+            transform:scale(1);
+
+        }
+
+    }
+
+
+
+
+    .result b{
+
+
+        color:#d00000;
+
+        font-size:25px;
+
+    }
+
+
+
+    </style>
+
+
+</head>
+
+
+
+
+<body>
+
+
+
+<!-- Floating Icons -->
+
+<div class="medical-icons">
+
+    <span>🩺</span>
+    <span>💊</span>
+    <span>🏥</span>
+
+</div>
+
+
+
+
+
+<!-- Language Selector -->
+
+
+<div class="language">
+
+<form action="/language" method="POST">
+
+
+<select name="language" onchange="this.form.submit()">
+
+
+<option value="english">
+🌐 English
+</option>
+
+
+<option value="hindi">
+🇮🇳 हिंदी
+</option>
+
+
+</select>
+
+
+</form>
+
+</div>
+
+
+
+
+
+
+
+<!-- Main Container -->
+
+
+<div class="container">
+
+
+
+    <!-- Header -->
+
+    <div class="badge">
+
+        AI Healthcare Assistant
+
+    </div>
+
+
+
+
+    <h1>
+
+        🩺  Disease Prediction System
+
+    </h1>
+
+
+
+
+    <p class="tagline">
+
+        Smart Healthcare Solution Powered by Machine Learning
+
+    </p>
+
+
+
+
+
+
+
+    <!-- Prediction Form -->
+
+
+    <form action="/predict" method="POST">
+
+
+
+        <h3>
+
+            Select Your Symptoms
+
+        </h3>
+
+
+
+
+        <div class="symptoms-box">
+
+
+
+            {% for symptom in symptoms %}
+
+
+
+            <label class="symptom">
+
+
+                <input type="checkbox"
+
+                name="symptoms"
+
+                value="{{symptom}}">
+
+
+
+                {{symptom.replace("_"," ").title()}}
+
+
+
+            </label>
+
+
+
+            {% endfor %}
+
+
+
+
+        </div>
+
+
+
+
+
+
+        <button type="submit">
+
+            🔍 Predict Disease
+
+        </button>
+
+
+
+
+
+    </form>
+
+
+
+
+
+
+
+    <!-- Result -->
+
+
+    {% if prediction %}
+
+
+
+    <div class="result">
+
+
+        <h2>
+
+            ✅ Prediction Result
+
+        </h2>
+
+
+
+
+        <p>
+
+            Possible Disease:
+
+            <br>
+
+
+            <b>
+
+                {{prediction}}
+
+            </b>
+
+
+        </p>
+
+
+    </div>
+
+
+
+    {% endif %}
+
+
+
+
+
+</div>
+
+
+
+</body>
+
+
+</html>
